@@ -1,0 +1,14 @@
+DataAccessLayer\IDALFacade.class
+DataAccessLayer\MYSQLDAOFactory.class
+BusinessLayer\BookBO.class
+PresentationLayer\JavaFXUI$1.class
+DTOPkg\BookDTO.class
+DataAccessLayer\TestDB.class
+Main.class
+DataAccessLayer\DALFacade.class
+DataAccessLayer\DBConnection.class
+PresentationLayer\JavaFXUI.class
+DataAccessLayer\MYSQLBookDAO.class
+DataAccessLayer\IBookDAO.class
+DataAccessLayer\AbstractDAOFactory.class
+DataAccessLayer\IDAOFactory.class
