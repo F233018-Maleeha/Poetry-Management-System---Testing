@@ -1,6 +1,0 @@
-id,title,compiler,era
-1,"Normal Book","Normal Compiler",2023
-2,"","Empty Title",2023
-3,"A","Single Char",0
-4,"Very Long Title That Might Break","Very Long Compiler Name",9999
-5,"Special !@#$","Special @#$",-2023
