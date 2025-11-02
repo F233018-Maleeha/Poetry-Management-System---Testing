@@ -1,0 +1,108 @@
+package DTOPkg;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class BookDTOTest {
+
+    @Test
+    @Order(1)
+    @DisplayName("BookDTO_Constructor_ShouldSetValuesCorrectly")
+    void bookDTO_Constructor_ShouldSetValuesCorrectly() {
+
+        BookDTO book = new BookDTO(1, "Test Title", "Test Compiler", 2023);
+
+        assertEquals(1, book.getBookID());
+        assertEquals("Test Title", book.getTitle());
+        assertEquals("Test Compiler", book.getCompiler());
+        assertEquals(2023, book.getEra());
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("BookDTO_Setters_ShouldUpdateValues")
+    void bookDTO_Setters_ShouldUpdateValues() {
+
+        BookDTO book = new BookDTO(1, "Original", "Original", 2000);
+
+        book.setTitle("Updated Title");
+        book.setCompiler("Updated Compiler");
+        book.setEra(2023);
+ 
+        assertEquals("Updated Title", book.getTitle());
+        assertEquals("Updated Compiler", book.getCompiler());
+        assertEquals(2023, book.getEra());
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("BookDTO_ToString_ShouldContainAllFields")
+    void bookDTO_ToString_ShouldContainAllFields() {
+
+        BookDTO book = new BookDTO(123, "Sample Book", "John Doe", 2023);
+
+        String result = book.toString();
+
+        assertTrue(result.contains("123"));
+        assertTrue(result.contains("Sample Book"));
+        assertTrue(result.contains("John Doe"));
+        assertTrue(result.contains("2023"));
+    }
+ 
+
+    @Test
+    @Order(4)
+    @DisplayName("BookDTO_WithNullValues_ShouldHandleGracefully")
+    void bookDTO_WithNullValues_ShouldHandleGracefully() {
+        
+        BookDTO book = new BookDTO(1, null, null, 2023);
+        
+        assertNull(book.getTitle());
+        assertNull(book.getCompiler());
+        assertEquals(2023, book.getEra());
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("BookDTO_WithBoundaryEraValues_ShouldHandleCorrectly")
+    void bookDTO_WithBoundaryEraValues_ShouldHandleCorrectly() {
+ 
+        BookDTO book1 = new BookDTO(1, "Book1", "Compiler1", Integer.MIN_VALUE);
+        BookDTO book2 = new BookDTO(2, "Book2", "Compiler2", 0);
+        BookDTO book3 = new BookDTO(3, "Book3", "Compiler3", Integer.MAX_VALUE);
+        
+        assertEquals(Integer.MIN_VALUE, book1.getEra());
+        assertEquals(0, book2.getEra());
+        assertEquals(Integer.MAX_VALUE, book3.getEra());
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("BookDTO_GetterSetter_ConsistencyCheck")
+    void bookDTO_GetterSetter_ConsistencyCheck() {
+
+    	BookDTO book = new BookDTO(1, "Original", "Original", 2000);
+
+        book.setBookID(999);
+        book.setTitle("Final Title");
+        book.setCompiler("Final Compiler"); 
+        book.setEra(3000);
+ 
+        assertEquals(999, book.getBookID());
+        assertEquals("Final Title", book.getTitle());
+        assertEquals("Final Compiler", book.getCompiler());
+        assertEquals(3000, book.getEra());
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("BookDTO_WithNegativeEra_ShouldHandleCorrectly")
+    void bookDTO_WithNegativeEra_ShouldHandleCorrectly() {
+        
+        BookDTO book = new BookDTO(1, "Ancient Book", "Ancient Compiler", -500);
+        
+        assertEquals(-500, book.getEra());
+        assertEquals("Ancient Book", book.getTitle());
+    }
+
+}
