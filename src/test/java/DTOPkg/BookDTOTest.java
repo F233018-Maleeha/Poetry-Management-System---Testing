@@ -1,4 +1,7 @@
 package DTOPkg;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -103,6 +106,21 @@ public class BookDTOTest {
         
         assertEquals(-500, book.getEra());
         assertEquals("Ancient Book", book.getTitle());
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/book_test_data.csv", numLinesToSkip = 1)
+    @DisplayName("BookDTO_DataDrivenFromCSV_ShouldCreateObjects")
+    void bookDTO_DataDrivenFromCSV_ShouldCreateObjects(
+        String testCase, int bookID, String title, String compiler, int era, String expectedResult) {
+        
+        // This test runs for each row in the CSV file
+        assertDoesNotThrow(() -> {
+            BookDTO book = new BookDTO(bookID, title, compiler, era);
+            assertNotNull(book);
+            assertEquals(title, book.getTitle());
+            assertEquals(compiler, book.getCompiler());
+            assertEquals(era, book.getEra());
+        });
     }
 
 }
