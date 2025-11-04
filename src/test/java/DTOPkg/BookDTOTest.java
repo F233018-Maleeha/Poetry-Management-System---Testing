@@ -122,6 +122,21 @@ public class BookDTOTest {
             assertEquals(era, book.getEra());
         });
     }
+    
+    @ParameterizedTest
+    @CsvFileSource(resources = "/book_boundary_data.csv", numLinesToSkip = 1)
+    @DisplayName("BookDTO_BoundaryValuesFromCSV_ShouldCreateObjects")
+    void bookDTO_BoundaryValuesFromCSV_ShouldCreateObjects(int id, String title, String compiler, int era) {
+        // This test runs for each row in the boundary data CSV
+        assertDoesNotThrow(() -> {
+            BookDTO book = new BookDTO(id, title, compiler, era);
+            assertNotNull(book);
+            assertEquals(title, book.getTitle());
+            assertEquals(compiler, book.getCompiler());
+            assertEquals(era, book.getEra());
+        });
+    }
+    
     @Test
     @DisplayName("BVA_Era_MinValue_ShouldHandle")
     void bva_Era_MinValue_ShouldHandle() {
