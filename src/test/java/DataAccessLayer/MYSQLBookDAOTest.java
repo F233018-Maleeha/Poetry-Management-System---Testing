@@ -58,5 +58,36 @@ public class MYSQLBookDAOTest {
         BookDTO book = new BookDTO(1, null, null, 0);
         assertDoesNotThrow(() -> mysqlBookDAO.deleteBook(book));
     }
+    @Test
+    @Order(5)
+    @DisplayName("ListAll_ShouldReturnBookList")
+    void listAll_ShouldReturnBookList() {
+        List<BookDTO> result = assertDoesNotThrow(() -> mysqlBookDAO.listAll());
+        assertNotNull(result);
+    }
+    @Test
+    @DisplayName("Integration_CreateThenRead_ShouldWork")
+    void integration_CreateThenRead_ShouldWork() {
+       
+        BookDTO book = new BookDTO(0, "Integration Test", "Integration Compiler", 2023);
+        
+        assertDoesNotThrow(() -> {
+            mysqlBookDAO.createBook(book);
+            BookDTO found = mysqlBookDAO.readBook(new BookDTO(book.getBookID(), null, null, 0));
+            
+        });
+    }
 
+    @Test
+    @DisplayName("Integration_CreateUpdateRead_ShouldWork")
+    void integration_CreateUpdateRead_ShouldWork() {
+        BookDTO book = new BookDTO(0, "Original", "Original", 2023);
+        
+        assertDoesNotThrow(() -> {
+            mysqlBookDAO.createBook(book);
+            BookDTO updated = new BookDTO(book.getBookID(), "Updated", "Updated", 2024);
+            mysqlBookDAO.updateBook(updated);
+           
+        });
+}
 }
