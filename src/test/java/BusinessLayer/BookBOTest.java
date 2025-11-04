@@ -94,6 +94,86 @@ public class BookBOTest {
         assertDoesNotThrow(() -> bookBO.createBook(validBook));
         verify(mockDalFacade).createBook(validBook);
     }
+    @Test
+    @Order(6)
+    @DisplayName("UpdateBook_WithNonExistingId_ShouldReturnNull")
+    void updateBook_WithNonExistingId_ShouldReturnNull() {
 
-   
+        when(mockDalFacade.updateBook(any(BookDTO.class))).thenReturn(null);
+
+        BookDTO result = bookBO.updateBook(new BookDTO(999, "Title", "Compiler", 2023));
+ 
+        assertNull(result);
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("CreateBook_WithNullTitle_ShouldHandleGracefully")
+    void createBook_WithNullTitle_ShouldHandleGracefully() {
+
+        BookDTO bookWithNullTitle = new BookDTO(0, null, "Compiler", 2023);
+ 
+        assertDoesNotThrow(() -> bookBO.createBook(bookWithNullTitle));
+        verify(mockDalFacade).createBook(bookWithNullTitle);
+    }
+ 
+    @Test
+    @Order(8)
+    @DisplayName("ListAll_WhenBooksExist_ShouldReturnAllBooks")
+    void listAll_WhenBooksExist_ShouldReturnAllBooks() {
+
+        List<BookDTO> expectedBooks = java.util.Arrays.asList(
+            new BookDTO(1, "Book One", "Compiler One", 2023),
+            new BookDTO(2, "Book Two", "Compiler Two", 2024)
+        );
+        when(mockDalFacade.listAll()).thenReturn(expectedBooks);
+
+        List<BookDTO> result = bookBO.listAll();
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("Book One", result.get(0).getTitle());
+    }
+
+    @Test
+    @Order(9)
+    @DisplayName("ListAll_WhenNoBooks_ShouldReturnEmptyList")
+    void listAll_WhenNoBooks_ShouldReturnEmptyList() {
+ 
+        when(mockDalFacade.listAll()).thenReturn(java.util.Arrays.asList());
+
+        List<BookDTO> result = bookBO.listAll();
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    @Order(10)
+    @DisplayName("CreateBook_WithEmptyTitle_ShouldCallDAL")
+    void createBook_WithEmptyTitle_ShouldCallDAL() {
+
+        BookDTO bookWithEmptyTitle = new BookDTO(0, "", "Compiler", 2023);
+ 
+        assertDoesNotThrow(() -> bookBO.createBook(bookWithEmptyTitle));
+        verify(mockDalFacade).createBook(bookWithEmptyTitle);
+    }
+
+    @Test
+    @DisplayName("ECP_EmptyTitle_ValidCompiler_ValidEra_ShouldHandle")
+    void ecp_EmptyTitle_ValidCompiler_ValidEra_ShouldHandle() {
+        BookDTO emptyTitleBook = new BookDTO(0, "", "Valid Compiler", 2023);
+        assertDoesNotThrow(() -> bookBO.createBook(emptyTitleBook));
+        verify(mockDalFacade).createBook(emptyTitleBook);
+    }
+
+    @Test
+    @DisplayName("ECP_NullTitle_ValidCompiler_ValidEra_ShouldHandle")
+    void ecp_NullTitle_ValidCompiler_ValidEra_ShouldHandle() {
+        BookDTO nullTitleBook = new BookDTO(0, null, "Valid Compiler", 2023);
+        assertDoesNotThrow(() -> bookBO.createBook(nullTitleBook));
+        verify(mockDalFacade).createBook(nullTitleBook);
+    }
 }
+}
+
