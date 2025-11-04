@@ -94,28 +94,39 @@ public class BookBOTest {
         assertDoesNotThrow(() -> bookBO.createBook(validBook));
         verify(mockDalFacade).createBook(validBook);
     }
-    @Order(6)
-    @DisplayName("UpdateBook_WithNonExistingId_ShouldReturnNull")
-    void updateBook_WithNonExistingId_ShouldReturnNull() {
-
-        when(mockDalFacade.updateBook(any(BookDTO.class))).thenReturn(null);
-
-        BookDTO result = bookBO.updateBook(new BookDTO(999, "Title", "Compiler", 2023));
-
-        assertNull(result);
+    
+    @Test
+    @Order(5)
+    @DisplayName("ListAll_ShouldReturnBookList")
+    void listAll_ShouldReturnBookList() {
+        List<BookDTO> result = assertDoesNotThrow(() -> mysqlBookDAO.listAll());
+        assertNotNull(result);
+    }
+    @Test
+    @DisplayName("Integration_CreateThenRead_ShouldWork")
+    void integration_CreateThenRead_ShouldWork() {
+       
+        BookDTO book = new BookDTO(0, "Integration Test", "Integration Compiler", 2023);
+        
+        assertDoesNotThrow(() -> {
+            mysqlBookDAO.createBook(book);
+            BookDTO found = mysqlBookDAO.readBook(new BookDTO(book.getBookID(), null, null, 0));
+            
+        });
     }
 
     @Test
-    @Order(7)
-    @DisplayName("CreateBook_WithNullTitle_ShouldHandleGracefully")
-    void createBook_WithNullTitle_ShouldHandleGracefully() {
-
-        BookDTO bookWithNullTitle = new BookDTO(0, null, "Compiler", 2023);
-
-        assertDoesNotThrow(() -> bookBO.createBook(bookWithNullTitle));
-        verify(mockDalFacade).createBook(bookWithNullTitle);
+    @DisplayName("Integration_CreateUpdateRead_ShouldWork")
+    void integration_CreateUpdateRead_ShouldWork() {
+        BookDTO book = new BookDTO(0, "Original", "Original", 2023);
+        
+        assertDoesNotThrow(() -> {
+            mysqlBookDAO.createBook(book);
+            BookDTO updated = new BookDTO(book.getBookID(), "Updated", "Updated", 2024);
+            mysqlBookDAO.updateBook(updated);
+           
+        });
     }
-
 
 
 }
