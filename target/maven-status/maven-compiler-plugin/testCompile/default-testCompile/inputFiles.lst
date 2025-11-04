@@ -1,3 +1,6 @@
-C:\Users\HP 840\eclipse-workspace\PMS\src\test\java\BusinessLayer\BookBOTest.java
-C:\Users\HP 840\eclipse-workspace\PMS\src\test\java\DataAccessLayer\MYSQLBookDAOTest.java
-C:\Users\HP 840\eclipse-workspace\PMS\src\test\java\DTOPkg\BookDTOTest.java
+C:\Users\HP 840\eclipse-workspace\Poetry-Management-System---Testing\src\test\java\DataAccessLayer\MYSQLBookDAOTest.java
+C:\Users\HP 840\eclipse-workspace\Poetry-Management-System---Testing\src\test\java\IntegrationTestSuite.java
+C:\Users\HP 840\eclipse-workspace\Poetry-Management-System---Testing\src\test\java\AllExceptSlowTestSuite.java
+C:\Users\HP 840\eclipse-workspace\Poetry-Management-System---Testing\src\test\java\DTOPkg\BookDTOTest.java
+C:\Users\HP 840\eclipse-workspace\Poetry-Management-System---Testing\src\test\java\FastTestSuite.java
+C:\Users\HP 840\eclipse-workspace\Poetry-Management-System---Testing\src\test\java\BusinessLayer\BookBOTest.java

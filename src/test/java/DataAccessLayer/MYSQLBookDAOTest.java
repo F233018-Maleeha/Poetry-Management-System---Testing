@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Tag("integration")
+@Tag("slow")
+@Tag("database")
 public class MYSQLBookDAOTest {
 
     private MYSQLBookDAO mysqlBookDAO;
@@ -66,6 +69,7 @@ public class MYSQLBookDAOTest {
         assertNotNull(result);
     }
     @Test
+    @Tag("slow")
     @DisplayName("Integration_CreateThenRead_ShouldWork")
     void integration_CreateThenRead_ShouldWork() {
        
@@ -79,6 +83,7 @@ public class MYSQLBookDAOTest {
     }
 
     @Test
+    @Tag("slow")
     @DisplayName("Integration_CreateUpdateRead_ShouldWork")
     void integration_CreateUpdateRead_ShouldWork() {
         BookDTO book = new BookDTO(0, "Original", "Original", 2023);

@@ -9,6 +9,9 @@ import java.util.List;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Tag("fast")
+@Tag("unit")
+@Tag("business")
 public class BookBOTest {
 
     private BookBO bookBO;
