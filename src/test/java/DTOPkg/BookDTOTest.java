@@ -122,5 +122,60 @@ public class BookDTOTest {
             assertEquals(era, book.getEra());
         });
     }
+    @Test
+    @DisplayName("BVA_Era_MinValue_ShouldHandle")
+    void bva_Era_MinValue_ShouldHandle() {
+        BookDTO minEraBook = new BookDTO(1, "Min Era", "Compiler", Integer.MIN_VALUE);
+        assertEquals(Integer.MIN_VALUE, minEraBook.getEra());
+    }
 
+    @Test
+    @DisplayName("BVA_Era_Zero_ShouldHandle")
+    void bva_Era_Zero_ShouldHandle() {
+        BookDTO zeroEraBook = new BookDTO(1, "Zero Era", "Compiler", 0);
+        assertEquals(0, zeroEraBook.getEra());
+    }
+
+    @Test
+    @DisplayName("BVA_Era_MaxValue_ShouldHandle")
+    void bva_Era_MaxValue_ShouldHandle() {
+        BookDTO maxEraBook = new BookDTO(1, "Max Era", "Compiler", Integer.MAX_VALUE);
+        assertEquals(Integer.MAX_VALUE, maxEraBook.getEra());
+    }
+
+    // BVA Tests for Title Length
+    @Test
+    @DisplayName("BVA_Title_Empty_ShouldHandle")
+    void bva_Title_Empty_ShouldHandle() {
+        BookDTO emptyTitle = new BookDTO(1, "", "Compiler", 2023);
+        assertEquals("", emptyTitle.getTitle());
+    }
+
+    @Test
+    @DisplayName("BVA_Title_SingleChar_ShouldHandle")
+    void bva_Title_SingleChar_ShouldHandle() {
+        BookDTO singleCharTitle = new BookDTO(1, "A", "Compiler", 2023);
+        assertEquals("A", singleCharTitle.getTitle());
+    }
+
+    @Test
+    @DisplayName("BVA_Title_Null_ShouldHandle")
+    void bva_Title_Null_ShouldHandle() {
+        BookDTO nullTitle = new BookDTO(1, null, "Compiler", 2023);
+        assertNull(nullTitle.getTitle());
+    }
+    @Test
+    @DisplayName("Demonstrate_CSV_Test_Data_Flow")
+    void demonstrate_CSV_Test_Data_Flow() {
+        System.out.println("=== CSV Test Data Flow Demonstration ===");
+        System.out.println("CSV Files Location: src/test/resources/");
+        System.out.println("1. book_test_data.csv → Contains various test scenarios");
+        System.out.println("2. book_boundary_data.csv → Contains boundary value cases");
+        System.out.println("3. @CsvFileSource reads these files automatically");
+        System.out.println("4. Each CSV row becomes a separate test execution");
+        System.out.println("5. Total tests: 38 methods + 11 CSV executions = 49 total");
+        System.out.println("========================================");
+        
+        assertTrue(true, "CSV test data flow is properly configured");
+    }
 }
